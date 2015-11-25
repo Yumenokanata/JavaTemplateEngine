@@ -1,17 +1,10 @@
 package indi.yume.daggergenerator.example;
 
-import com.google.googlejavaformat.java.FormatterException;
-import indi.yume.daggergenerator.template.StringContentEngine;
+import indi.yume.daggergenerator.generator.ClazzGenerator;
 import indi.yume.daggergenerator.template.TemplateEngine;
 import indi.yume.daggergenerator.template.VarStringEngine;
-import org.beetl.core.Configuration;
-import org.beetl.core.GroupTemplate;
-import org.beetl.core.Template;
-import org.beetl.core.resource.StringTemplateResourceLoader;
-import org.jsoup.Jsoup;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,8 +33,8 @@ public class Test11 {
         try {
             File baseFile = new File("");
             TemplateEngine templateEngine = new TemplateEngine(new File(baseFile.getAbsoluteFile() + "/src/indi/yume/daggergenerator/example/config.xml"), varStringEngine);
-            templateEngine.setTemplateFile(new File(baseFile.getAbsoluteFile() + "/src/indi/yume/daggergenerator/example/activity.xml"));
-            String content = templateEngine.render();
+            ClazzGenerator generator = templateEngine.setTemplateFile(new File(baseFile.getAbsoluteFile() + "/src/indi/yume/daggergenerator/example/activity.xml"));
+            String content = generator.render();
             System.out.println(content);
         } catch (Exception e) {
             e.printStackTrace();

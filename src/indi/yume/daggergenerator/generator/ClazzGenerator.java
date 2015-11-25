@@ -60,7 +60,7 @@ public class ClazzGenerator {
         innerClazzList.add(clazz);
     }
 
-    public String generate(){
+    public String render(){
         return toString(new NewLine(), true);
     }
 

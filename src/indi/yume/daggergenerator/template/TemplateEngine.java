@@ -16,8 +16,6 @@ import java.util.*;
  * Created by yume on 15/11/23.
  */
 public class TemplateEngine {
-    private ClazzGenerator generator;
-
     private VarStringEngine varStringEngine;
     private ConfigEngine configEngine;
 
@@ -26,18 +24,14 @@ public class TemplateEngine {
         this.varStringEngine = varStringEngine;
     }
 
-    public String render(){
-        if(generator != null)
-            return generator.generate();
-        return null;
-    }
-
-    public void setTemplateFile(File templateFile) throws Exception {
+    public ClazzGenerator setTemplateFile(File templateFile) throws Exception {
         Document document = Jsoup.parse(new FileInputStream(templateFile), "UTF-8", "", Parser.xmlParser());
 
         Element classMakerElement = document.getElementsByTag(ClassMakerKey.KEY).first();
 
-        generator = analysisClazzMaker(classMakerElement);
+        ClazzGenerator generator = analysisClazzMaker(classMakerElement);
+
+        return generator;
     }
 
     private ClazzGenerator analysisClazzMaker(Element classMakerElement) throws Exception {
