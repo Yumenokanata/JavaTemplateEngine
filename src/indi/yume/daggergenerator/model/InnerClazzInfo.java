@@ -22,11 +22,12 @@ public class InnerClazzInfo extends ClazzInfo {
     @Override
     public List<String> getImportClazz() {
         List<String> list = new ArrayList<>();
-        if(packageName != null)
+        if(packageName != null && !"".equals(packageName))
             list.add(packageName);
 
-        if(genericClazz != null)
-            list.addAll(genericClazz.getImportClazz());
+        if(genericClazzList.size() != 0)
+            for(ClazzInfo ci : genericClazzList)
+                list.addAll(ci.getImportClazz());
         list = getAnnoImportClazz(list);
         return list;
     }

@@ -1,0 +1,55 @@
+<classMaker classVarName="fragment">
+    <extends classVarName="baseFragment"/>
+    <implements classVarName="presenterGetInterface"/>
+
+    <note>${note}</note>
+
+    <property valueName="presenter"
+              classVarName="presenter"
+              modifier="private">
+        <anno classVarName="inject"/>
+    </property>
+
+    <method returnClassName="view" methodName="onCreateView">
+        <anno classVarName="override"/>
+
+        <methodParam classVarName="layoutInflater" valueName="inflater"/>
+        <methodParam classVarName="viewGroup" valueName="container"/>
+        <methodParam classVarName="bundle" valueName="savedInstanceState"/>
+
+        <include classVarName="butterknife"/>
+        <include classVarName="R"/>
+        <body>
+            View view = inflater.inflate(R.layout.${_-name}_fragment, container, false);\n
+            ButterKnife.bind(this, view);\n
+            \n
+            return view;
+        </body>
+    </method>
+
+    <method returnClassName="void" methodName="inject">
+        <anno classVarName="override"/>
+
+        <methodParam classVarName="appComponent" valueName="appComponent"/>
+
+        <include classVarName="dagger"/>
+        <include classVarName="module"/>
+        <include classVarName="component"/>
+        <body>
+            ${name}Component homeComponent = Dagger${name}Component.builder()\n
+                .appComponent(appComponent)\n
+                .${&lt;name}Module(new ${name}Module(this))\n
+                .build();\n
+            homeComponent.injectFragment(this);\n
+            homeComponent.injectPresenter(presenter);
+        </body>
+    </method>
+
+    <method returnClassName="string" methodName="headTitle">
+        <anno classVarName="override"/>
+
+        <body>
+            return "${name}Fragment";
+        </body>
+    </method>
+</classMaker>

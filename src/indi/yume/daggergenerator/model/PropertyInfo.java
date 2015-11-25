@@ -24,7 +24,6 @@ public class PropertyInfo extends BaseInfo{
     }
 
     public String toString(NewLine newline){
-        generatorAnnotation(newline);
         String mod = modifier.toString();
         if(!"".equals(mod))
             mod += " ";

@@ -1,0 +1,19 @@
+<classMaker classVarName="presenter">
+    <extends classVarName="basePresenter"/>
+
+    <note>${note}</note>
+
+    <property valueName="listener"
+              classVarName="presenterInterface"
+              modifier="private"/>
+
+    <method methodName="${name}Presenter">
+        <methodParam classVarName="presenterInterface" valueName="listener"/>
+
+        <body>
+            this.listener = listener;
+        </body>
+    </method>
+
+    <classMaker classVarName="presenterInterface" modifier="public static"/>
+</classMaker>

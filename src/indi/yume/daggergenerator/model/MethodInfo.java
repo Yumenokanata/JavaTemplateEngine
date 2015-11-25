@@ -3,6 +3,7 @@ package indi.yume.daggergenerator.model;
 import indi.yume.daggergenerator.generator.NewLine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,14 +37,15 @@ public class MethodInfo extends BaseInfo {
     public MethodInfo(ClazzInfo returnClazz, String methodName, ParamInfo[] params) {
         this.returnClazz = returnClazz;
         this.methodName = methodName;
-        if(params != null)
+        if(params != null && params.length != 0)
             this.params = params;
 
         if(returnClazz != null)
             importClazz.add(returnClazz);
 
-        for(ParamInfo pi : params)
-            importClazz.add(pi.getClazzInfo());
+        if(params != null && params.length != 0)
+            for(ParamInfo pi : params)
+                importClazz.add(pi.getClazzInfo());
     }
 
     public void addAnnotation(AnnotationInfo annotationClazz) {
@@ -79,8 +81,9 @@ public class MethodInfo extends BaseInfo {
         return methodBodyGenerator;
     }
 
-    public void setMethodBodyGenerator(MethodBodyGenerator methodBodyGenerator) {
+    public void setMethodBodyGenerator(MethodBodyGenerator methodBodyGenerator, ClazzInfo... importClazz) {
         this.methodBodyGenerator = methodBodyGenerator;
+        Collections.addAll(this.importClazz, importClazz);
     }
 
     public String toString(NewLine newline){
@@ -100,7 +103,8 @@ public class MethodInfo extends BaseInfo {
         if(params.length > 0) {
             for (ParamInfo pi : params)
                 stringBuilder.append(pi.toString())
-                        .append(",");
+                        .append(", ");
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
 
@@ -108,9 +112,16 @@ public class MethodInfo extends BaseInfo {
             stringBuilder.append(");\n");
         } else {
             stringBuilder.append("){\n");
-            methodBodyGenerator.generatorMethodBody(stringBuilder, newline.clone().addPrefix());
-            newline.startNewLine(stringBuilder);
-            stringBuilder.append("}\n");
+
+            newline.clone().addPrefix();
+            String body = methodBodyGenerator.generatorMethodBody(newline.getTab());
+            String tab = newline.clone().addPrefix().getPrefix();
+            body = body.replace("\n", "\n" + tab);
+            body = tab + body;
+            stringBuilder.append(body);
+            stringBuilder.append("\n")
+                    .append(newline.getPrefix())
+                    .append("}\n");
         }
 
         return stringBuilder.toString();

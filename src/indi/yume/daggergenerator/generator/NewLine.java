@@ -39,6 +39,10 @@ public class NewLine {
         return prefix;
     }
 
+    public String getTab(){
+        return NEW_LINE_SPACE;
+    }
+
     @Override
     public NewLine clone() {
         return new NewLine(prefix);

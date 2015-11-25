@@ -13,7 +13,7 @@ public class ClazzInfo extends BaseInfo{
     protected Type type;
     protected String packageName;
     protected String clazzName;
-    protected ClazzInfo genericClazz;
+    protected List<ClazzInfo> genericClazzList = new ArrayList<>();
 
     public ClazzInfo(){
 
@@ -34,7 +34,7 @@ public class ClazzInfo extends BaseInfo{
     public ClazzInfo(String packageName, Type type, String clazzName, ClazzInfo genericClazz){
         this.packageName = packageName;
         this.clazzName = clazzName;
-        this.genericClazz = genericClazz;
+        this.genericClazzList.add(genericClazz);
     }
 
     public Type getType() {
@@ -69,35 +69,51 @@ public class ClazzInfo extends BaseInfo{
         this.clazzName = clazzName;
     }
 
-    public ClazzInfo getGenericClazz() {
-        return genericClazz;
+    public List<ClazzInfo> getGenericClazz() {
+        return genericClazzList;
     }
 
-    public void setGenericClazz(ClazzInfo genericClazz) {
-        this.genericClazz = genericClazz;
+    public void addGenericClazz(ClazzInfo genericClazz) {
+        this.genericClazzList.add(genericClazz);
     }
 
     public String toString(){
-        if(genericClazz != null)
-            return clazzName + "<" + genericClazz.toString() + ">";
-        return clazzName;
+        StringBuilder clazz = new StringBuilder(clazzName);
+        if(genericClazzList.size() != 0) {
+            clazz.append("<");
+            for (ClazzInfo ci : genericClazzList)
+                clazz.append(ci.toString())
+                        .append(", ");
+            clazz.deleteCharAt(clazz.length() - 1)
+                    .deleteCharAt(clazz.length() - 1)
+                    .append(">");
+        }
+        return clazz.toString();
     }
 
     public String toString(NewLine newline){
-        String s = getModifierInfo() + type.get() + clazzName;
-        if(genericClazz != null)
-            return s + "<" + genericClazz.toString() + ">";
-        return s;
+        StringBuilder clazz = new StringBuilder(getModifierInfo() + type.get() + clazzName);
+        if(genericClazzList.size() != 0) {
+            clazz.append("<");
+            for (ClazzInfo ci : genericClazzList)
+                clazz.append(ci.toString())
+                        .append(", ");
+            clazz.deleteCharAt(clazz.length() - 1)
+                    .deleteCharAt(clazz.length() - 1)
+                    .append(">");
+        }
+        return clazz.toString();
     }
 
     @Override
     public List<String> getImportClazz() {
         List<String> list = new ArrayList<>();
-        if(packageName != null)
+        if(packageName != null && !"".equals(packageName))
             list.add(packageName + "." + clazzName);
 
-        if(genericClazz != null)
-            list.addAll(genericClazz.getImportClazz());
+        if(genericClazzList.size() != 0)
+            for(ClazzInfo ci : genericClazzList)
+                list.addAll(ci.getImportClazz());
         list = getAnnoImportClazz(list);
         return list;
     }

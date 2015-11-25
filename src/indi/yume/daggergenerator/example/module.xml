@@ -1,0 +1,37 @@
+<classMaker classVarName="module">
+    <anno classVarName="moduleAnno"/>
+    <extends classVarName="baseModule"/>
+
+    <note>${note}</note>
+
+    <property valueName="fragment"
+              classVarName="fragment"
+              modifier="private"/>
+
+    <method methodName="${name}Module">
+        <methodParam classVarName="fragment" valueName="fragment"/>
+
+        <body>
+            this.fragment = fragment;
+        </body>
+    </method>
+
+    <method returnClassName="presenter" methodName="providePresenter">
+        <anno classVarName="activityScope"/>
+        <anno classVarName="provides"/>
+
+        <methodParam classVarName="fragment" valueName="fragment"/>
+
+        <body>
+            return new ${name}Presenter(fragment);
+        </body>
+    </method>
+
+    <method returnClassName="context" methodName="provideActivity">
+        <anno classVarName="override"/>
+
+        <body>
+            return fragment.getContext();
+        </body>
+    </method>
+</classMaker>

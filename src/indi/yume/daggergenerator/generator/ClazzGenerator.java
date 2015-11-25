@@ -27,6 +27,10 @@ public class ClazzGenerator {
         this.baseClazzInfo = baseClazzInfo;
     }
 
+    public ClazzInfo getBaseClazzInfo() {
+        return baseClazzInfo;
+    }
+
     public void addAnnotation(AnnotationInfo annotation){
         baseClazzInfo.addAnnotation(annotation);
     }
@@ -47,10 +51,9 @@ public class ClazzGenerator {
         propertyList.add(property);
     }
 
-    public void addMethod(MethodInfo method, ClazzInfo... importClazz){
+    public void addMethod(MethodInfo method){
         method.setType(baseClazzInfo.getType());
         methodList.add(method);
-        Collections.addAll(extraImportClazz, importClazz);
     }
 
     public void addInnerClazz(ClazzGenerator clazz){
