@@ -1,8 +1,6 @@
 package indi.yume.daggergenerator.template;
 
-import com.google.googlejavaformat.java.FormatterException;
 import indi.yume.daggergenerator.generator.ClazzGenerator;
-import indi.yume.daggergenerator.generator.NewLine;
 import indi.yume.daggergenerator.model.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,11 +10,6 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Modifier;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -119,7 +112,7 @@ public class TemplateEngine {
         Element note = getNodesInChildren(classMaker, ClassMakerKey.NOTE.KEY).first();
         if(note != null){
             String noteString = varStringEngine.analysisString(note.text());
-            noteString = StringContentEngine.custom(" * ", "    ", noteString);
+            noteString = StringContentEngine.generateString(" * ", "    ", noteString);
             noteString = "/**\n" + noteString + "\n */";
             classGenerator.setNote(noteString);
         }
@@ -230,7 +223,7 @@ public class TemplateEngine {
                         bodyString = body != null ? body.text() : "";
                         bodyString = bodyString.replace("\\n", "\n");
                         bodyString = varStringEngine.analysisString(bodyString);
-                        bodyString = StringContentEngine.custom("", tab, bodyString);
+                        bodyString = StringContentEngine.generateString("", tab, bodyString);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

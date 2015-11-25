@@ -1,8 +1,5 @@
 package indi.yume.daggergenerator.template;
 
-import com.google.googlejavaformat.java.Formatter;
-import com.google.googlejavaformat.java.FormatterException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,19 +9,7 @@ import java.util.Map;
  * Created by yume on 15/11/24.
  */
 public class StringContentEngine {
-    public static String generateString(String startString, String content) throws FormatterException {
-        String[] contentList = content.split("\n");
-        StringBuilder noEmptyString = new StringBuilder();
-        for(String line : contentList)
-            noEmptyString.append(line.trim());
-
-        Formatter formatter = new Formatter();
-        String formatString = formatter.formatSource(noEmptyString.toString());
-
-        return startString + formatString.replace("\n", "\n" + startString);
-    }
-
-    public static String custom(String startString, String tabString, String content) throws Exception {
+    public static String generateString(String startString, String tabString, String content) throws Exception {
         if(content == null)
             return "";
 
