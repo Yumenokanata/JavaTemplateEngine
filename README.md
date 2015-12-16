@@ -10,17 +10,17 @@ Simple Java code TemplateEngine, use xml.
 
 ## 使用方法
 
-Demo：indi.yume.tools.codegenerator.example.Test11.java
-
-//声明一个字符串置换引擎   
-VarStringEngine varStringEngine = new VarStringEngine();    
-//绑定一个变量   
-varStringEngine.binding("name", "A09_1_TestTest");    
-//新建模板引擎，需要配置文件和一个字符串置换引擎，此时会根据这两个文件生成一个类的图，在之后渲染模板时进行类分析   
+Demo：indi.yume.daggergenerator.example.Test11.java
+```java
+//声明一个字符串置换引擎
+VarStringEngine varStringEngine = new VarStringEngine();
+//绑定一个变量
+varStringEngine.binding("name", "A09_1_TestTest");
+//新建模板引擎，需要配置文件和一个字符串置换引擎，此时会根据这两个文件生成一个类的图，在之后渲染模板时进行类分析
 TemplateEngine templateEngine = new TemplateEngine(new File("config.xml"), varStringEngine);
-//设定模板文件，分析此文件并初始化类生成器   
+//设定模板文件，分析此文件并初始化类生成器
 templateEngine.setTemplateFile(new File("activity.xml"));
-//使用类生成器生成代码   
+//使用类生成器生成代码
 String content = templateEngine.render();
 ```
 
@@ -128,14 +128,34 @@ String content = templateEngine.render();
 
 ### 字符串置换引擎（VarStringEngine）
 
-//声明一个字符串置换引擎   
-VarStringEngine varStringEngine = new VarStringEngine();    
-//绑定一个变量   
-varStringEngine.binding("name", "A09_1_TestTest");    
-String oriString = "hello, ${_<name}";   
-varStringEngine.binding("name", "TestTest");   
-String string = varStringEngine.analysisString(oriString); // "hello, test_Test"   
+```java
+//声明一个字符串置换引擎
+VarStringEngine varStringEngine = new VarStringEngine();
+//绑定一个变量
+varStringEngine.binding("name", "A09_1_TestTest");
+String oriString = "hello, ${_<name}";
+varStringEngine.binding("name", "TestTest");
+String string = varStringEngine.analysisString(oriString); // "hello, test_Test"
+```
+
+#### 语法
+  关键字：- + < >
+  1. -
+  全部字母小写
+  2. +
+  全部字母大写
+  3. <
+  首字母小写
+  4. \>
+  首字母大写
+
+  其中以关键字为分割，前面如果有内容则以前面的内容作为分隔符对字符串进行分割
+  如"${&&&+name}"定义name="TestTest&&&Test"则输出："TEST&&&TEST&&&TEST"
 
 ### 代码格式化引擎（StringContentEngine）
 
+通过一个堆栈分析字符串中的语法成分（主要是利用"{}"与"()"的层数与其他一些语法规则）来进行代码的格式化
+#### 用法
+```java
 StringContentEngine.generateString(String startString, String tabString, String content);
+```
