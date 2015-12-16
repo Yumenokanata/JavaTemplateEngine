@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
+
+ext {
+    aspectjVersion = '1.8.4'
+
+    artifactoryContextUrl = 'http://localhost:8081/artifactory'
+    artifactoryRepoKey = 'libs-release-yume'
+
+    artifactoryUserName = 'admin'
+    artifactoryPassword = 'password'
+}
+
+publishing {
+    publications {
+        jar(MavenPublication) {
+            groupId 'indi.yume.tools'
+            version = '2.0.1'
+            artifactId project.getName()
+
+            // Tell maven to prepare the generated "* .aar" file for publishing
+            artifact("out/artifacts/${project.getName()}_jar/${project.getName()}.jar")
+
+//            pom.withXml {
+//                def dependencies = asNode().appendNode('dependencies')
+//                configurations.getByName("_releaseCompile").getResolvedConfiguration().getFirstLevelModuleDependencies().each {
+//                    def dependency = dependencies.appendNode('dependency')
+//                    dependency.appendNode('groupId', it.moduleGroup)
+//                    dependency.appendNode('artifactId', it.moduleName)
+//                    dependency.appendNode('version', it.moduleVersion)
+//                }
+//            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = artifactoryContextUrl
+    publish {
+        repository {
+            // The Artifactory repository key to publish to
+            repoKey = artifactoryRepoKey
+
+            username = artifactoryUserName
+            password = artifactoryPassword
+        }
+        defaults {
+            // Tell the Artifactory Plugin which artifacts should be published to Artifactory.
+            publications('jar')
+            publishArtifacts = true
+
+            // Properties to be attached to the published artifacts.
+            properties = ['qa.level': 'basic', 'dev.team': 'yume']
+            // Publish generated POM files to Artifactory (true by default)
+            publishPom = true
+        }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

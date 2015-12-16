@@ -1,6 +1,4 @@
-package indi.yume.daggergenerator.template;
-
-import indi.yume.daggergenerator.model.ClazzInfo;
+package indi.yume.tools.codegenerator.template;
 
 import java.lang.reflect.Modifier;
 

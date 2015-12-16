@@ -1,4 +1,4 @@
-package indi.yume.daggergenerator.generator;
+package indi.yume.tools.codegenerator.generator;
 
 /**
  * Created by yume on 15/9/26.

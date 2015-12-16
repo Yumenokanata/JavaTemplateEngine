@@ -1,6 +1,6 @@
-package indi.yume.daggergenerator.model;
+package indi.yume.tools.codegenerator.model;
 
-import indi.yume.daggergenerator.generator.NewLine;
+import indi.yume.tools.codegenerator.generator.NewLine;
 
 import java.util.ArrayList;
 import java.util.List;

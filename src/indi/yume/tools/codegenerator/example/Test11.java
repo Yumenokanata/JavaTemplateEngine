@@ -1,8 +1,8 @@
-package indi.yume.daggergenerator.example;
+package indi.yume.tools.codegenerator.example;
 
-import indi.yume.daggergenerator.generator.ClazzGenerator;
-import indi.yume.daggergenerator.template.TemplateEngine;
-import indi.yume.daggergenerator.template.VarStringEngine;
+import indi.yume.tools.codegenerator.generator.ClazzGenerator;
+import indi.yume.tools.codegenerator.template.TemplateEngine;
+import indi.yume.tools.codegenerator.template.VarStringEngine;
 
 import java.io.File;
 import java.text.DateFormat;

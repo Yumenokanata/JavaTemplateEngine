@@ -10,7 +10,7 @@ Simple Java code TemplateEngine, use xml.
 
 ## 使用方法
 
-Demo：indi.yume.daggergenerator.example.Test11.java
+Demo：Test11.java
 
 //声明一个字符串置换引擎   
 VarStringEngine varStringEngine = new VarStringEngine();    

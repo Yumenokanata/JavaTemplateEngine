@@ -1,7 +1,5 @@
-package indi.yume.daggergenerator.model;
+package indi.yume.tools.codegenerator.model;
 
-
-import indi.yume.daggergenerator.generator.NewLine;
 
 /**
  * Created by yume on 15/9/26.

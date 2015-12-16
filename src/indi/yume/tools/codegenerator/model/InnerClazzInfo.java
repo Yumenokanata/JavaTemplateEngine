@@ -1,4 +1,4 @@
-package indi.yume.daggergenerator.model;
+package indi.yume.tools.codegenerator.model;
 
 import java.util.ArrayList;
 import java.util.List;

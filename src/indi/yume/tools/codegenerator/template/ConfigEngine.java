@@ -1,9 +1,9 @@
-package indi.yume.daggergenerator.template;
+package indi.yume.tools.codegenerator.template;
 
-import indi.yume.daggergenerator.model.AnnotationInfo;
-import indi.yume.daggergenerator.model.ClazzInfo;
-import indi.yume.daggergenerator.model.InnerClazzInfo;
-import indi.yume.daggergenerator.model.Type;
+import indi.yume.tools.codegenerator.model.AnnotationInfo;
+import indi.yume.tools.codegenerator.model.ClazzInfo;
+import indi.yume.tools.codegenerator.model.InnerClazzInfo;
+import indi.yume.tools.codegenerator.model.Type;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

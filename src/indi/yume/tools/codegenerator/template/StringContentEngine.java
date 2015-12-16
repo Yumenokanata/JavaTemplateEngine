@@ -1,4 +1,4 @@
-package indi.yume.daggergenerator.template;
+package indi.yume.tools.codegenerator.template;
 
 import java.util.ArrayList;
 import java.util.HashMap;

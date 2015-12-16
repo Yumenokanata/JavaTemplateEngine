@@ -1,9 +1,7 @@
-package indi.yume.daggergenerator.generator;
+package indi.yume.tools.codegenerator.generator;
 
-import indi.yume.daggergenerator.model.*;
+import indi.yume.tools.codegenerator.model.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**

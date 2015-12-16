@@ -1,7 +1,7 @@
-package indi.yume.daggergenerator.template;
+package indi.yume.tools.codegenerator.template;
 
-import indi.yume.daggergenerator.generator.ClazzGenerator;
-import indi.yume.daggergenerator.model.*;
+import indi.yume.tools.codegenerator.generator.ClazzGenerator;
+import indi.yume.tools.codegenerator.model.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
